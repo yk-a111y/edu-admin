@@ -3,13 +3,16 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
+    user: JSON.parse(window.localStorage.getItem('user')) || null
   },
   mutations: {
-  },
-  actions: {
-  },
-  modules: {
+    setUser (state, value) {
+      state.user = JSON.parse(value)
+      window.localStorage.setItem('user', value)
+    }
   }
 })
+
+export default store
