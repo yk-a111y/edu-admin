@@ -1,15 +1,18 @@
 <template>
   <div class="user">
-    <h1>用户页面</h1>
+    <user-list></user-list>
   </div>
 </template>
 
 <script>
+import UserList from './components/List.vue'
+
 export default {
-  name: 'user'
+  name: 'user',
+  components: {
+    UserList
+  }
 }
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

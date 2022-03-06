@@ -33,3 +33,48 @@ export const getRoleById = id => {
     url: `boss/role/${id}`
   })
 }
+
+// 分页查询用户信息
+export const getUserPages = data => {
+  return request({
+    method: 'POST',
+    url: '/boss/user/getUserPages',
+    data
+  })
+}
+
+// 封禁用户
+export const forbidUser = userId => {
+  return request({
+    method: 'POST',
+    url: '/boss/user/forbidUser',
+    params: {
+      userId
+    }
+  })
+}
+
+// 获取所有角色
+export const getAllRoles = () => {
+  return request({
+    method: 'GET',
+    url: '/boss/role/all'
+  })
+}
+
+// 查询用户角色
+export const getUserRoles = userId => {
+  return request({
+    method: 'GET',
+    url: `/boss/role/user/${userId}`
+  })
+}
+
+// 给用户分配角色
+export const allocateUserRoles = data => {
+  return request({
+    method: 'POST',
+    url: '/boss/role/allocateUserRoles',
+    data
+  })
+}

@@ -1,12 +1,16 @@
 <template>
   <div class="course">
-    <h1>课程页面</h1>
+    <course-list></course-list>
   </div>
 </template>
 
 <script>
+import CourseList from './components/List.vue'
 export default {
-  name: 'course'
+  name: 'course',
+  components: {
+    CourseList
+  }
 }
 </script>
 
