@@ -36,3 +36,14 @@ export const uploadCourseImage = (data, onUploadProgress) => {
     onUploadProgress
   })
 }
+
+// 根据课程id获取信息
+export const getCourseById = courseId => {
+  return request({
+    method: 'GET',
+    url: '/boss/course/getCourseById',
+    params: {
+      courseId
+    }
+  })
+}

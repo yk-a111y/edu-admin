@@ -62,6 +62,18 @@ const routes = [
         component: () => import(/* webpackChunkName: 'course-create' */ '@/views/course/create')
       },
       {
+        path: '/course/:courseId/section',
+        name: 'course-section',
+        component: () => import(/* webpackChunkName: 'course-section' */ '@/views/course/section'),
+        props: true
+      },
+      {
+        path: '/course/:courseId/edit',
+        name: 'course-edit',
+        component: () => import(/* webpackChunkName: 'course-edit' */ '@/views/course/edit'),
+        props: true
+      },
+      {
         path: '/user',
         name: 'user',
         component: () => import(/* webpackChunkName: 'user' */ '@/views/user/index')

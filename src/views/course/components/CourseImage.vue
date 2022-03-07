@@ -74,6 +74,11 @@ export default {
         this.isUpLoading = false
       }
     }
+  },
+  computed: {
+    previewUrl () {
+      return this.imageUrl || this.value
+    }
   }
 }
 </script>
