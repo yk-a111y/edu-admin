@@ -28,7 +28,7 @@ export default {
     return {
       form: {
         phone: '18201288771',
-        password: ''
+        password: '111111'
       },
       rules: {
         phone: [
