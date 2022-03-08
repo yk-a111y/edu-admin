@@ -1,21 +1,34 @@
 <template>
   <div class="course-section">
     <el-tree
+      v-loading="isLoading"
       :data="sections"
       :props="defaultProps"
       :allow-drop="handleAllowDrop"
+      @node-drop="handleNodeDrop"
       draggable
     >
       <div class="inner" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
         <span v-if="data.sectionName" class="actions">
           <el-button>编辑</el-button>
-          <el-button>添加课时</el-button>
+          <el-button type="primary">添加课时</el-button>
           <el-button>状态</el-button>
         </span>
         <span v-else class="actions">
           <el-button>编辑</el-button>
-          <el-button>上传视频</el-button>
+          <el-button
+            type="success"
+            @click="$router.push({
+              name: 'course-video',
+              params: {
+                courseId
+              },
+              query: {
+                lessonId: data.id
+              }
+            })"
+          >上传视频</el-button>
           <el-button>状态</el-button>
         </span>
       </div>
@@ -24,7 +37,7 @@
 </template>
 
 <script>
-import { getSectionAndLesson } from '@/services/course-section'
+import { getSectionAndLesson, saveOrUpdateSection, saveOrUpdateLesson } from '@/services/course-section'
 
 export default {
   name: 'CourseSection',
@@ -42,13 +55,36 @@ export default {
         label (data) {
           return data.sectionName || data.theme
         }
-      }
+      },
+      isLoading: false
     }
   },
   created () {
     this.loadSection()
   },
   methods: {
+    async handleNodeDrop (draggingNode, dropNode) {
+      this.isLoading = true
+      try {
+        await Promise.all(dropNode.parent.childNodes.map((item, index) => {
+          if (draggingNode.data.lessonDTOS) {
+            return saveOrUpdateSection({
+              id: item.data.id,
+              orderNum: index
+            })
+          } else {
+            return saveOrUpdateLesson({
+              id: item.data.id,
+              orderNum: index
+            })
+          }
+        }))
+        this.$message.success('数据更新成功')
+      } catch (err) {
+        this.$message.info('数据更新失败', err)
+      }
+      this.isLoading = false
+    },
     handleAllowDrop (draggingNode, dropNode, type) {
       return type !== 'inner' && draggingNode.data.sectionId === dropNode.data.sectionId
     },
