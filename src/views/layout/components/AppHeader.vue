@@ -2,10 +2,12 @@
   <div class="app-header">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-      <el-breadcrumb-item>课程管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>广告管理</el-breadcrumb-item>
+      <el-breadcrumb-item
+        v-for="(item, index) in $route.meta"
+        :key="index"
+      >
+        {{ item }}
+      </el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 右侧下拉菜单 -->
     <el-dropdown>
@@ -71,6 +73,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    ::v-deep .el-breadcrumb__inner {
+      font-size: 18px;
+      font-weight: bold;
+    }
     .el-dropdown-link {
       display: flex;
       align-items: center;
